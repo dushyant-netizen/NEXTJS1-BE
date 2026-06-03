@@ -63,7 +63,6 @@ app.use(errorLogger);
 
 const allowedOrigins = [
   'http://localhost:3000',
-  https://nextjs1-be-render.onrender.com,
   https://next-merce-iota.vercel.app/,
   process.env.NEXTAUTH_URL,
   process.env.FRONTEND_URL,
