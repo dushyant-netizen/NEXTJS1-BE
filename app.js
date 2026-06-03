@@ -63,7 +63,8 @@ app.use(errorLogger);
 
 const allowedOrigins = [
   'http://localhost:3000',
-  https://next-merce-iota.vercel.app/,
+  'https://next-merce-iota.vercel.app/',
+  'https://nextjs1-be-render.onrender.com',
   process.env.NEXTAUTH_URL,
   process.env.FRONTEND_URL,
 ].filter(Boolean); // Remove undefined values
