@@ -3,31 +3,29 @@ const prisma = require('../utils/db');
 const getRecommendations = async (req, res) => {
     try {
         const { productId } = req.params;
+        
+        // Add this check to see what the server is actually receiving
+        console.log("Received productId:", productId);
 
-        // 1. Fetch the source product to get its category
+        if (!productId) {
+            return res.status(400).json({ message: "Product ID is required in the URL" });
+        }
+
+        // Ensure you are using the correct type (Int or String based on your schema)
+        // If your schema uses String IDs, remove parseInt()
+        const id = productId; 
+
         const product = await prisma.product.findUnique({
-            where: { id: parseInt(productId) },
+            where: { id: id },
             select: { categoryId: true }
         });
 
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
+        if (!product) return res.status(404).json({ message: "Product not found" });
 
-        // 2. Fetch similar products in the same category, excluding the current one
-        const recommendations = await prisma.product.findMany({
-            where: {
-                categoryId: product.categoryId,
-                id: { not: parseInt(productId) }
-            },
-            take: 4, // Limit to 4 recommendations
-            orderBy: { createdAt: 'desc' }
-        });
-
-        res.status(200).json(recommendations);
+        // ... rest of your code
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error fetching recommendations" });
+        console.error("RECOMMENDATION_ERROR:", error);
+        res.status(500).json({ message: "Server error", details: error.message });
     }
 };
 
