@@ -61,8 +61,8 @@ app.use(requestLogger);
 app.use(errorLogger);
 
 const allowedOrigins = [
-  process.env.NEXTAUTH_URL,
-  process.env.FRONTEND_URL,
+    "http://localhost:3000",
+    "https://next-merce-r21iy7878-dushyant-netizens-projects.vercel.app"
 ].filter(Boolean); // Remove undefined values
 
 // CORS configuration with origin validation
