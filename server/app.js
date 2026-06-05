@@ -104,17 +104,8 @@ app.use("/api/orders", orderLimiter);
 app.use("/api/order-product", orderLimiter);
 app.use("/api/images", uploadLimiter);
 app.use("/api/main-image", uploadLimiter);
-// app.use("/api/wishlist", wishlistLimiter);
-// app.use("/api/products", productLimiter);
-// app.use("/api/merchants", productLimiter);
 app.use("/api/bulk-upload", uploadLimiter);
-
-// Apply stricter rate limiting to authentication-related routes
 app.use("/api/users/email", authLimiter); // For login attempts via email lookup 
-
-// Apply admin rate limiting to admin routes
-
-app.use("/api/recommendations", recommendationRouter); // Add this
 app.use("/api/products", productsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/images", productImagesRouter);
