@@ -1,8 +1,7 @@
 const express = require("express");
 const path = require('path');
-// Load env from server/.env then fallback to project root .env
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+// Now that app.js is at the root, a simple config() is enough
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const fileUpload = require("express-fileupload");
 const productsRouter = require("./routes/products");
@@ -18,6 +17,7 @@ const orderProductRouter = require('./routes/customer_order_product');
 const notificationsRouter = require('./routes/notifications');
 const merchantRouter = require('./routes/merchant'); // Add this line
 const bulkUploadRouter = require('./routes/bulkUpload');
+const recommendationRouter = require('./routes/recommendations');
 var cors = require("cors");
 
 // Import logging middleware
@@ -62,12 +62,10 @@ app.use(requestLogger);
 app.use(errorLogger);
 
 const allowedOrigins = [
-  'http://localhost:3000',
-  'https://nextjs1-be-render.onrender.com',
-  'https://next-merce-k354cgpsp-dushyant-netizens-projects.vercel.app', // ADD THIS EXACTLY
   process.env.NEXTAUTH_URL,
   process.env.FRONTEND_URL,
-].filter(Boolean);
+].filter(Boolean); // Remove undefined values
+
 // CORS configuration with origin validation
 const corsOptions = {
   origin: function (origin, callback) {
@@ -94,10 +92,9 @@ const corsOptions = {
 };
 
 // Apply general rate limiting to all routes
-app.use(generalLimiter);
-
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(generalLimiter);
 app.use(fileUpload());
 
 // Apply specific rate limiters to different route groups
@@ -117,7 +114,7 @@ app.use("/api/users/email", authLimiter); // For login attempts via email lookup
 
 // Apply admin rate limiting to admin routes
 
-
+app.use("/api/recommendations", recommendationRouter); // Add this
 app.use("/api/products", productsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/images", productImagesRouter);
