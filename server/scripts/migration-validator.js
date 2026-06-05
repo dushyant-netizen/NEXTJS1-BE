@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const prisma = require("../utils/db");
 const fs = require('fs');
 const path = require('path');
 

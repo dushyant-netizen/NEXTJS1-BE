@@ -1,9 +1,6 @@
-// Create an admin user directly
-const { PrismaClient } = require("@prisma/client");
+const prisma = require("utils/db");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-
-const prisma = new PrismaClient();
 
 async function createAdminUser() {
   try {

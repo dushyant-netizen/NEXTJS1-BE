@@ -1,5 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
-const { nanoid } = require('nanoid');
+const prisma = require("../utils/db");
 
 const prisma = new PrismaClient();
 
