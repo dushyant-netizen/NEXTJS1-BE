@@ -1,8 +1,7 @@
 const express = require("express");
 const path = require('path');
-// Load env from server/.env then fallback to project root .env
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+// Now that app.js is at the root, a simple config() is enough
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const fileUpload = require("express-fileupload");
 const productsRouter = require("./routes/products");
@@ -93,10 +92,9 @@ const corsOptions = {
 };
 
 // Apply general rate limiting to all routes
-app.use(generalLimiter);
-
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(generalLimiter);
 app.use(fileUpload());
 
 // Apply specific rate limiters to different route groups
