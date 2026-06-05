@@ -4,29 +4,26 @@ const getRecommendations = async (req, res) => {
     try {
         const { productId } = req.params;
         
-        // Add this check to see what the server is actually receiving
-        console.log("Received productId:", productId);
+        // LOGS: Check these in your Render logs
+        console.log("Raw ID:", productId);
+        console.log("ID Type:", typeof productId);
 
-        if (!productId) {
-            return res.status(400).json({ message: "Product ID is required in the URL" });
-        }
-
-        // Ensure you are using the correct type (Int or String based on your schema)
-        // If your schema uses String IDs, remove parseInt()
-        const id = productId; 
+        // Convert if your database uses Ints
+        const id = parseInt(productId); 
 
         const product = await prisma.product.findUnique({
             where: { id: id },
             select: { categoryId: true }
         });
 
-        if (!product) return res.status(404).json({ message: "Product not found" });
+        if (!product) {
+            console.log("No product found in DB for ID:", id);
+            return res.status(404).json({ message: "Product not found" });
+        }
 
         // ... rest of your code
     } catch (error) {
-        console.error("RECOMMENDATION_ERROR:", error);
-        res.status(500).json({ message: "Server error", details: error.message });
+        console.error("DEBUG ERROR:", error);
+        res.status(500).json({ message: "Server error" });
     }
 };
-
-module.exports = { getRecommendations };
