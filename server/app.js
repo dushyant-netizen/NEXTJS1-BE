@@ -68,6 +68,8 @@ const allowedOrigins = [
 // CORS configuration with origin validation
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log("Incoming Origin:", origin);
+    console.log("Allowed Origins:", allowedOrigins);
 
     if (!origin) return callback(null, true);
     
