@@ -1,23 +1,23 @@
-import { PrismaClient } from "@prisma/client"; 
+import { PrismaClient } from "@prisma/client";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 const prismaClientSingleton = () => {
-    // Validate that DATABASE_URL is present
     if (!process.env.DATABASE_URL) {
         throw new Error('DATABASE_URL environment variable is required');
     }
 
-    // Parse DATABASE_URL to check SSL configuration
-    const databaseUrl = process.env.DATABASE_URL;
-    const url = new URL(databaseUrl);
-    
-    // Log SSL configuration for debugging
-    if (process.env.NODE_ENV === "development") {
-        console.log(` Database connection: ${url.protocol}//${url.hostname}:${url.port || '3306'}`);
-        console.log(`🔒 SSL Mode: ${url.searchParams.get('sslmode') || 'not specified'}`);
-    }
+    // 1. Initialize the PostgreSQL Pool
+    const pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+    });
 
+    // 2. Initialize the PrismaPg adapter
+    const adapter = new PrismaPg(pool);
+
+    // 3. Pass the adapter to the PrismaClient constructor
     return new PrismaClient({
-        // Add logging for debugging
+        adapter, // <--- THIS IS THE KEY REQUIREMENT FOR PRISMA V7
         log: process.env.NODE_ENV === "development" 
             ? ['query', 'info', 'warn', 'error']
             : ['error', 'warn'],
