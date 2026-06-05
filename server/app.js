@@ -42,7 +42,7 @@ const {
 
 const {
   handleServerError
-} = require('./utills/errorHandler');
+} = require('./utils/errorHandler');
 
 const app = express();
 

@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { validateOrderData, ValidationError } = require('../utills/validation');
-const { createOrderUpdateNotification } = require('../utills/notificationHelpers');
+const { validateOrderData, ValidationError } = require('../utils/validation');
+const { createOrderUpdateNotification } = require('../utils/notificationHelpers');
 
 async function createCustomerOrder(request, response) {
   try {
