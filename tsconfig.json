@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
-    "rootDir": "./", 
-    "outDir": "./dist",
-    
+    "rootDir": "server",   // Change this from "./" to "server"
+    "outDir": "dist",      // Change this from "./dist" to "dist"
     "module": "nodenext",
     "target": "esnext",
-    "moduleResolution": "nodenext", // Add this for better Node support
-    "types": ["node"], // Ensure you have @types/node installed
-    
+    "moduleResolution": "nodenext",
+    "types": ["node"],
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
     "strict": true,
-    "esModuleInterop": true, // Required for your Prisma imports
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "isolatedModules": true
   },
-  "include": ["server/**/*"] 
+  "include": ["server/**/*"]
 }
