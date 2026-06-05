@@ -1,5 +1,5 @@
-const prisma = require("../utills/db"); // ✅ Use shared connection with SSL
-const { asyncHandler, handleServerError, AppError } = require("../utills/errorHandler");
+const prisma = require("../utils/db"); // ✅ Use shared connection with SSL
+const { asyncHandler, handleServerError, AppError } = require("../utils/errorHandler");
 
 // Security: Define whitelists for allowed filter types and operators
 const ALLOWED_FILTER_TYPES = ['price', 'rating', 'category', 'inStock', 'outOfStock'];

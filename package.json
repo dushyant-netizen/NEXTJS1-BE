@@ -6,8 +6,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node dist/server/app.js",
+    "start": "node server/app.js",
     "dev": "nodemon app.js",
     "logs": "node view-logs.js",
     "logs:access": "node view-logs.js access",
