@@ -17,7 +17,6 @@ const orderProductRouter = require('./routes/customer_order_product');
 const notificationsRouter = require('./routes/notifications');
 const merchantRouter = require('./routes/merchant'); // Add this line
 const bulkUploadRouter = require('./routes/bulkUpload');
-const recommendationRouter = require('./routes/recommendations');
 var cors = require("cors");
 
 // Import logging middleware
