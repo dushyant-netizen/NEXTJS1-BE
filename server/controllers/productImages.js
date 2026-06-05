@@ -1,4 +1,4 @@
-const prisma = require("../config/prisma");
+const prisma = require("../utils/db");
 
 async function getSingleProductImages(request, response) {
   const { id } = request.params;
