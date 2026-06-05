@@ -27,3 +27,6 @@ const getRecommendations = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+// Make sure this matches exactly
+module.exports = { getRecommendations };
