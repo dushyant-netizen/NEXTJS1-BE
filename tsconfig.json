@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "rootDir": "server",   // Change this from "./" to "server"
-    "outDir": "dist",      // Change this from "./dist" to "dist"
+    "rootDir": "./", 
+    "outDir": "./dist",
     "module": "nodenext",
-    "target": "esnext",
     "moduleResolution": "nodenext",
-    "types": ["node"],
-    "sourceMap": true,
-    "strict": true,
+    "target": "esnext",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "isolatedModules": true
+    "strict": true
   },
   "include": ["server/**/*"]
 }
