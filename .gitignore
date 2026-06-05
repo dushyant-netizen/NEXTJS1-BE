@@ -1,0 +1,42 @@
+# --- Existing ---
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example  # Keep this if you use it for shared config!
+
+# Logs
+logs/
+*.log
+
+# Database
+backups/
+*.sql
+*.dump
+*.backup
+prisma/generated/  # CRITICAL: If you use a custom output path, ignore it!
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+
+# --- Additions for Unified Backend ---
+# Prisma internal files
+.prisma/
+
+# Build folders (if you add build steps later)
+dist/
+build/
+out/
