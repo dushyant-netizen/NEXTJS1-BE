@@ -190,3 +190,33 @@ enum BulkUploadItemStatus {
   UPDATED
   ERROR
 }
+
+// Add to your prisma/schema.prisma file
+
+model SupportSession {
+  id           String        @id @default(uuid())
+  userEmail    String?       // Optional link if user is logged in
+  status       String        @default("ACTIVE") // ACTIVE, RESOLVED, ESCALATED
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  messages     SupportMessage[]
+  actions      AgentAction[]
+}
+
+model SupportMessage {
+  id         String         @id @default(uuid())
+  sessionId  String
+  session    SupportSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sender     String         // "USER" or "AI_AGENT"
+  text       String         @db.Text
+  createdAt  DateTime       @default(now())
+}
+
+model AgentAction {
+  id         String         @id @default(uuid())
+  sessionId  String
+  session    SupportSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  actionType String         // "CHECK_ORDER_STATUS", "INITIATE_RETURN"
+  details    String         @db.Text
+  createdAt  DateTime       @default(now())
+}

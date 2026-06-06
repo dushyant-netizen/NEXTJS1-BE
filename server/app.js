@@ -17,6 +17,7 @@ const orderProductRouter = require('./routes/customer_order_product');
 const notificationsRouter = require('./routes/notifications');
 const merchantRouter = require('./routes/merchant'); // Add this line
 const bulkUploadRouter = require('./routes/bulkUpload');
+const supportRouter = require("./routes/support");
 var cors = require("cors");
 
 // Import logging middleware
@@ -99,6 +100,7 @@ app.use(generalLimiter);
 app.use(fileUpload());
 
 // Apply specific rate limiters to different route groups
+app.use("/api/support", supportRouter);
 app.use("/api/users", userManagementLimiter);
 app.use("/api/search", searchLimiter);
 app.use("/api/orders", orderLimiter);
