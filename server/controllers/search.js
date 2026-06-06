@@ -2,8 +2,10 @@ const prisma = require("../utils/db");
 
 async function searchProducts(request, response) {
     try {
-        const { query } = request.query;
-        if (!query) {
+        // Fallback check to catch both ?query= and ?search= parameter keys
+        const queryStr = request.query.query || request.query.search;
+        
+        if (!queryStr) {
             return response.status(400).json({ error: "Query parameter is required" });
         }
 
@@ -12,12 +14,14 @@ async function searchProducts(request, response) {
                 OR: [
                     {
                         title: {
-                            contains: query
+                            contains: queryStr,
+                            mode: 'insensitive' // 🔌 Fixes Neon case matching issues!
                         }
                     },
                     {
                         description: {
-                            contains: query
+                            contains: queryStr,
+                            mode: 'insensitive' // 🔌 Fixes Neon case matching issues!
                         }
                     }
                 ]
